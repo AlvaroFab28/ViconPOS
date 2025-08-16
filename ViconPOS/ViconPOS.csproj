@@ -9,19 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="System.Data.SQLite" Version="1.0.119" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Core\Interfaces\Services\" />
-    <Folder Include="Core\Interfaces\Repositories\" />
-    <Folder Include="Core\Models\" />
-    <Folder Include="Infrastructure\Data\" />
-    <Folder Include="Infrastructure\Services\" />
-    <Folder Include="Infrastructure\Repositories\" />
     <Folder Include="Modules\Inventory\View\" />
     <Folder Include="Modules\Inventory\Presenter\" />
-    <Folder Include="Modules\Login\Presenter\" />
     <Folder Include="Modules\POS\" />
   </ItemGroup>
 
@@ -38,12 +32,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="CrisCoreDB.db">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>

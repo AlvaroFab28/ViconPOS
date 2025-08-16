@@ -1,4 +1,5 @@
 ﻿
+
 namespace ViconPOS.Modules.Login.View
 {
     partial class LoginForm
@@ -122,7 +123,7 @@ namespace ViconPOS.Modules.Login.View
             lblError.BackColor = Color.White;
             lblError.Font = new Font("Segoe UI", 10F);
             lblError.ForeColor = Color.Red;
-            lblError.Location = new Point(334, 340);
+            lblError.Location = new Point(214, 337);
             lblError.Name = "lblError";
             lblError.Size = new Size(139, 23);
             lblError.TabIndex = 6;
@@ -139,7 +140,6 @@ namespace ViconPOS.Modules.Login.View
             chkMostrar.TabIndex = 7;
             chkMostrar.Text = "Mostrar contraseña";
             chkMostrar.UseVisualStyleBackColor = true;
-            chkMostrar.CheckedChanged += chkMostrar_CheckedChanged;
             // 
             // LoginForm
             // 
@@ -165,6 +165,11 @@ namespace ViconPOS.Modules.Login.View
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
+        }
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+
         }
 
         #endregion

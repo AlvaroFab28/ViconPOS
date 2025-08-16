@@ -7,7 +7,7 @@ Sistema ERP modular enfocado en gastronomía: POS, Inventario multialmacén, Rec
 Hecho en C# WinForms con arquitectura MVP + Repository + DI, base de datos SQLite.
 
 ## 🚀 Roadmap
-- [ ] Login con autenticación segura (BCrypt)
+- [x] Login con autenticación segura (BCrypt)
 - [ ] Menú principal con navegación por módulos
 - [ ] Módulo Dashboard
 - [ ] Módulo POS

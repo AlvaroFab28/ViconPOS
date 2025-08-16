@@ -10,26 +10,46 @@ using System.Windows.Forms;
 
 namespace ViconPOS.Modules.Login.View
 {
-    public partial class LoginForm : Form
+    public partial class LoginForm : Form, ILoginView
     {
+        // Eventos que escuchará el Presenter
+        public event Action IngresarClick = delegate { };
+        public event Action<bool> MostrarPasswordCambio = delegate { };
+
         public LoginForm()
         {
             InitializeComponent();
+            lblError.Text = string.Empty;
+            // Wireo de eventos de UI → ILoginView
+            btnIngresar.Click += (_, __) => IngresarClick();
+            chkMostrar.CheckedChanged += (_, __) => MostrarPasswordCambio(chkMostrar.Checked);
         }
 
-        private void LoginForm_Load(object sender, EventArgs e)
+        // Datos expuestos al Presenter
+        public string Usuario => txtUsuario.Text.Trim();
+        public string Contraseña => txtContraseña.Text;
+
+        // Métodos de la interfaz
+        public void MostrarError(string mensaje)
         {
-            lblError.Text = "";
+            lblError.Text = mensaje;
+            lblError.Visible = true;
         }
 
-        private void chkMostrar_CheckedChanged(object sender, EventArgs e)
+        public void LimpiarError()
         {
+            lblError.Text = string.Empty;
+        }
 
-            // Cambia la propiedad UseSystemPasswordChar del TextBox de contraseña
-            // txtContraseña.UseSystemPasswordChar es una propiedad que determina si el TextBox muestra los caracteres como asteriscos o no.
-            // y con !chkMostrar.Checked se invierte el valor de la propiedad.
-            txtContraseña.UseSystemPasswordChar = !chkMostrar.Checked;
+        public void Cerrar()
+        {
+            Close();
+        }
 
+        // Maneja el cambio de visibilidad de la contraseña (llamado por LoginPresenter)
+        public void CambiarVisibilidadPassword(bool mostrar)
+        {
+            txtContraseña.UseSystemPasswordChar = !mostrar;
         }
     }
 }
