@@ -19,8 +19,6 @@ namespace ViconPOS.Modules.Login.View
 
         // Se dispara cuando el usuario hace clic en "Ingresar"
         event Action IngresarClick;
-        // Se dispara cuando cambia el check de "Mostrar contraseña" (true = mostrar)
-        event Action<bool> MostrarPasswordCambio;
 
         // Muestra un mensaje de error en la UI
         void MostrarError(string mensaje);
@@ -28,6 +26,9 @@ namespace ViconPOS.Modules.Login.View
         void LimpiarError();
         // (Opcional) Cierra el formulario cuando el login es exitoso
         void Cerrar();
-        void CambiarVisibilidadPassword(bool mostrar);
+        void Ocultar();
+        void Mostrar();
+        void limpiarCampos();
+         
     }
 }

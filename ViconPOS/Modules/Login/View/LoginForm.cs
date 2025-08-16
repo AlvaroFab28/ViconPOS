@@ -14,7 +14,6 @@ namespace ViconPOS.Modules.Login.View
     {
         // Eventos que escuchará el Presenter
         public event Action IngresarClick = delegate { };
-        public event Action<bool> MostrarPasswordCambio = delegate { };
 
         public LoginForm()
         {
@@ -22,7 +21,7 @@ namespace ViconPOS.Modules.Login.View
             lblError.Text = string.Empty;
             // Wireo de eventos de UI → ILoginView
             btnIngresar.Click += (_, __) => IngresarClick();
-            chkMostrar.CheckedChanged += (_, __) => MostrarPasswordCambio(chkMostrar.Checked);
+
         }
 
         // Datos expuestos al Presenter
@@ -45,11 +44,67 @@ namespace ViconPOS.Modules.Login.View
         {
             Close();
         }
-
-        // Maneja el cambio de visibilidad de la contraseña (llamado por LoginPresenter)
-        public void CambiarVisibilidadPassword(bool mostrar)
+        public void Ocultar()
         {
-            txtContraseña.UseSystemPasswordChar = !mostrar;
+            Hide();
+        }
+        public void Mostrar()
+        {
+            limpiarCampos();
+            BeginInvoke(new Action(() => ActiveControl = btnDummyFocus));
+
+            Show();
+        }
+        public void limpiarCampos()
+        {
+            txtContraseña.Text = string.Empty;
+            lblError.Text = string.Empty;
+            txtUsuario.Text = string.Empty;
+        }
+        // Evento que se dispara cuando el usuario cambia el estado del checkbox "Mostrar contraseña"
+        private void chkMostrar_CheckedChanged(object sender, EventArgs e)
+        {
+            txtContraseña.UseSystemPasswordChar = !chkMostrar.Checked;
+        }
+
+        // 🧠 Este método se dispara *antes* del KeyDown tradicional
+        private void txtUsuario_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                txtContraseña.Focus();
+            }
+        }
+
+        private void txtContraseña_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnIngresar.PerformClick(); // Disparás el ingreso como si hicieras clic
+            }
+        }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == Keys.Enter)
+            {
+                return true; // Suprime por completo el Enter si queda colgado
+            }
+
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+        
+        private Button btnDummyFocus = new Button
+        {
+            Visible = false,
+            TabStop = false,
+            Enabled = false
+        };
+
+
+        private void LoginForm_Load(object sender, EventArgs e)
+        {
+            this.Controls.Add(btnDummyFocus); // Solo la primera vez
+            this.ActiveControl = btnDummyFocus;
         }
     }
 }

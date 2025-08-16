@@ -28,9 +28,9 @@ namespace ViconPOS.Infrastructure.Services
 
             var admin = new UsuarioModel 
             { 
-                Username = "admin",
-                Email = "adminVicon@gmail.com",
-                PasswordHash = "admin123",
+                Username = "Fabian",
+                Email = "alvarofabianvillenam@gmail.com",
+                PasswordHash = "fabi",
                 RolId = 1, // Asegurate de tener este Rol en la DB
                 Activo = true
             };

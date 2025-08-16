@@ -26,7 +26,6 @@ namespace ViconPOS.Modules.Login.Presenter
 
             // Suscribimos a los eventos de la vista
             _vista.IngresarClick += OnIngresarClick;
-            _vista.MostrarPasswordCambio += OnMostrarPasswordCambio;
         }
 
         // Maneja clic en el botón Ingresar
@@ -46,19 +45,14 @@ namespace ViconPOS.Modules.Login.Presenter
             if (ok)
             {
                LoginSuccess?.Invoke(); // Notificamos que el login fue exitoso
-               //_vista.Cerrar(); // Aquí podrías abrir Form2 o notificar al Program
+                                       //_vista.Cerrar(); // Aquí podrías abrir Form2 o notificar al Program
+                                       
+
             }
             else
             {
                 _vista.MostrarError("Credenciales incorrectas o usuario inactivo");
             }
-        }
-
-        // Maneja el cambio de visibilidad de contraseña
-        private void OnMostrarPasswordCambio(bool mostrar)
-        {
-            // La vista ya lo maneja internamente, pero dejamos este hook por si queremos registrar analytics o algo
-            _vista.CambiarVisibilidadPassword(mostrar);
         }
     }
 }

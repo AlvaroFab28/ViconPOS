@@ -26,7 +26,7 @@ namespace ViconPOS
             IPasswordHasher hasher = new BCryptPasswordHasher();
 
             // 🗃️ Repositorio de usuarios con inyección de dependencias
-            var usuarioRepo = new UsuarioRepository(conexionFactory,hasher);
+            var usuarioRepo = new UsuarioRepository(conexionFactory, hasher);
             IAuthService auth = new AuthService(usuarioRepo, hasher);
 
             // 🖼️ Creamos la vista y el presenter
@@ -37,20 +37,24 @@ namespace ViconPOS
             var seeder = new DatabaseSeeder(usuarioRepo);
             seeder.Sembrar(); // 🌱 Solo se ejecuta si no hay usuarios
 
-            // 🎯 Evento que lanza el menú cuando el login es exitoso
-            //presenter.LoginSuccess += () => // esto solo se
-            //{
-            //    // ⚠️ Abrí el menú en un nuevo ciclo del loop UI
-            //    loginForm.Invoke(() => // invoke sir
-            //    {
-            //        var menu = new MainMenuForm();
-            //        menu.Show();
-            //        loginForm.Close(); // o Close() si querés destruirlo
-            //    });
-            //};
+            #region // Eventos de la vista
+            //🎯 Evento que lanza el menú cuando el login es exitoso
+            presenter.LoginSuccess += () => 
+            {
+                // ⚠️ Abrí el menú en un nuevo ciclo del loop UI
+                loginForm.Invoke(() => //
+                {
+                    var menu = new MainMenuForm(auth, loginForm);
+                    menu.Show();
+                    loginForm.Ocultar(); // Ocultamos el login                 
+                });
+            };
+
+            
+            #endregion
 
             // 🚀 Lanzamos la aplicación
-            Application.Run(new MainMenuForm());
+            Application.Run(loginForm);
         }
     }
 }

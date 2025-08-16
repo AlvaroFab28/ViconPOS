@@ -8,7 +8,7 @@ Hecho en C# WinForms con arquitectura MVP + Repository + DI, base de datos SQLit
 
 ## 🚀 Roadmap
 - [x] Login con autenticación segura (BCrypt)
-- [ ] Menú principal con navegación por módulos
+- [x] Menú principal con navegación por módulos
 - [ ] Módulo Dashboard
 - [ ] Módulo POS
 - [ ] Módulo Inventario
